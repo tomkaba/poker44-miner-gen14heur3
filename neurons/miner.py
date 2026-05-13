@@ -169,6 +169,10 @@ class Miner(BaseMinerNeuron):
             f"Manifest digest={self.manifest_digest} "
             f"inference_mode={self.model_manifest.get('inference_mode', '')}"
         )
+        bt.logging.info(
+            "Manifest full payload: "
+            f"{json.dumps(self.model_manifest, ensure_ascii=True, sort_keys=True)}"
+        )
         bt.logging.info(f"Project root: {repo_root}")
 
     async def forward(self, synapse: DetectionSynapse) -> DetectionSynapse:
@@ -268,7 +272,7 @@ class Miner(BaseMinerNeuron):
         return allowed
 
     def score_chunk(self, chunk: list[dict]) -> float:
-        score, _route = score_chunk_gen7heur9(chunk)
+        score, _route = score_chunk_gen14heur(chunk)
         return float(score)
 
     async def blacklist(self, synapse: DetectionSynapse) -> Tuple[bool, str]:
@@ -347,6 +351,6 @@ if __name__ == "__main__":
         bt.logging.info("Heuristic miner running...")
         while True:
             bt.logging.info(
-                f"Miner UID: {miner.uid} | Incentive: {float(miner.metagraph.I[miner.uid])} | Scorer: gen10heur10"
+                f"Miner UID: {miner.uid} | Incentive: {float(miner.metagraph.I[miner.uid])} | Scorer: gen14heur3"
             )
             time.sleep(60)
