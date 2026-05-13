@@ -101,7 +101,18 @@ class Miner(BaseMinerNeuron):
 
         self.model_manifest = build_local_model_manifest(
             repo_root=repo_root,
-            implementation_files=[Path(__file__).resolve()],
+            implementation_files=[
+                self.root / "models/gen14_profile.json",
+                self.root / "neurons/miner.py",
+                self.root / "poker44/__init__.py",
+                self.root / "poker44/base/miner.py",
+                self.root / "poker44/base/neuron.py",
+                self.root / "poker44/miner_heuristics.py",
+                self.root / "poker44/utils/config.py",
+                self.root / "poker44/utils/misc.py",
+                self.root / "poker44/utils/model_manifest.py",
+                self.root / "poker44/validator/synapse.py",
+            ],
             defaults={
                 "model_name": "poker44_gen14heur3",
                 "model_version": "14.3",
