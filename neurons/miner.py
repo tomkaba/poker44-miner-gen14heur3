@@ -92,12 +92,12 @@ class Miner(BaseMinerNeuron):
 
         try:
             git_commit = subprocess.check_output(
-                ["git", "-C", str(repo_root), "rev-parse", "--short", "HEAD"],
+                ["git", "-C", str(repo_root), "rev-parse", "HEAD"],
                 stderr=subprocess.DEVNULL,
                 timeout=5,
             ).decode().strip()
         except Exception:
-            git_commit = os.getenv("POKER44_MODEL_REPO_COMMIT", "")
+            git_commit = ""
 
         self.model_manifest = build_local_model_manifest(
             repo_root=repo_root,

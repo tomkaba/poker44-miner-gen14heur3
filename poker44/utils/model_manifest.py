@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
 import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional
@@ -66,82 +65,40 @@ def build_local_model_manifest(
 
     manifest: Dict[str, Any] = {
         "schema_version": "1",
-        "open_source": _parse_bool(
-            os.getenv("POKER44_MODEL_OPEN_SOURCE"),
-            default=bool(default_values.get("open_source", True)),
-        ),
-        "model_name": os.getenv(
-            "POKER44_MODEL_NAME",
-            str(default_values.get("model_name", "poker44-reference-heuristic")),
-        ),
-        "model_version": os.getenv(
-            "POKER44_MODEL_VERSION",
-            str(default_values.get("model_version", "dev")),
-        ),
-        "framework": os.getenv(
-            "POKER44_MODEL_FRAMEWORK",
-            str(default_values.get("framework", "python-heuristic")),
-        ),
-        "license": os.getenv(
-            "POKER44_MODEL_LICENSE",
-            str(default_values.get("license", "MIT")),
-        ),
-        "repo_url": os.getenv(
-            "POKER44_MODEL_REPO_URL",
-            str(default_values.get("repo_url", "")),
+        "open_source": bool(default_values.get("open_source", True)),
+        "model_name": str(
+            default_values.get("model_name", "poker44-reference-heuristic")
         ).strip(),
-        "repo_commit": os.getenv(
-            "POKER44_MODEL_REPO_COMMIT",
-            str(default_values.get("repo_commit", "")),
-        ).strip(),
-        "artifact_url": os.getenv(
-            "POKER44_MODEL_ARTIFACT_URL",
-            str(default_values.get("artifact_url", "")),
-        ).strip(),
-        "artifact_sha256": os.getenv(
-            "POKER44_MODEL_ARTIFACT_SHA256",
-            str(default_values.get("artifact_sha256", "")),
-        ).strip(),
-        "model_card_url": os.getenv(
-            "POKER44_MODEL_CARD_URL",
-            str(default_values.get("model_card_url", "")),
-        ).strip(),
-        "training_data_statement": os.getenv(
-            "POKER44_MODEL_TRAINING_DATA_STATEMENT",
-            str(default_values.get("training_data_statement", "")),
+        "model_version": str(default_values.get("model_version", "dev")).strip(),
+        "framework": str(default_values.get("framework", "python-heuristic")).strip(),
+        "license": str(default_values.get("license", "MIT")).strip(),
+        "repo_url": str(default_values.get("repo_url", "")).strip(),
+        "repo_commit": str(default_values.get("repo_commit", "")).strip(),
+        "artifact_url": str(default_values.get("artifact_url", "")).strip(),
+        "artifact_sha256": str(default_values.get("artifact_sha256", "")).strip(),
+        "model_card_url": str(default_values.get("model_card_url", "")).strip(),
+        "training_data_statement": str(
+            default_values.get("training_data_statement", "")
         ).strip(),
         "training_data_sources": [
-            item.strip()
-            for item in os.getenv(
-                "POKER44_MODEL_TRAINING_DATA_SOURCES",
-                ",".join(default_values.get("training_data_sources", [])),
-            ).split(",")
-            if item.strip()
+            str(item).strip()
+            for item in default_values.get("training_data_sources", [])
+            if str(item).strip()
         ],
-        "private_data_attestation": os.getenv(
-            "POKER44_MODEL_PRIVATE_DATA_ATTESTATION",
-            str(default_values.get("private_data_attestation", "")),
+        "private_data_attestation": str(
+            default_values.get("private_data_attestation", "")
         ).strip(),
-        "data_attestation": os.getenv(
-            "POKER44_MODEL_DATA_ATTESTATION",
-            str(default_values.get("data_attestation", "")) or os.getenv(
-                "POKER44_MODEL_PRIVATE_DATA_ATTESTATION",
-                str(default_values.get("private_data_attestation", "")),
-            ),
+        "data_attestation": str(
+            default_values.get("data_attestation", "")
+            or default_values.get("private_data_attestation", "")
         ).strip(),
-        "inference_mode": os.getenv(
-            "POKER44_MODEL_INFERENCE_MODE",
-            str(default_values.get("inference_mode", "remote")),
-        ).strip(),
+        "inference_mode": str(default_values.get("inference_mode", "remote")).strip(),
         "implementation_sha256": implementation_sha256,
         "implementation_files": [
             str(path.relative_to(repo_root)) if path.is_relative_to(repo_root) else str(path)
             for path in implementation_paths
         ],
-        "notes": os.getenv(
-            "POKER44_MODEL_NOTES",
-            str(default_values.get("notes", "")),
-        ).strip(),
+        "notes": str(default_values.get("notes", "")).strip(),
     }
     return normalize_model_manifest(manifest)
 

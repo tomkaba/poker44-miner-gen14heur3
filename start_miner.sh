@@ -19,9 +19,6 @@ SESSION_PREFIX="${POKER44_SESSION_PREFIX:-sn126b_m}"
 AXON_BASE_PORT="${POKER44_AXON_BASE_PORT:-12080}"
 VENV_BIN="${POKER44_VENV_BIN:-$REPO/.venv/bin}"
 
-MANIFEST_REPO_URL="${POKER44_MODEL_REPO_URL:-https://github.com/tomkaba/poker44-miner-gen14heur3}"
-MANIFEST_REPO_COMMIT="${POKER44_MODEL_REPO_COMMIT:-$(git -C "$REPO" rev-parse HEAD 2>/dev/null || true)}"
-
 if [[ -f "$ENV_FILE" ]]; then
   set -a
   # shellcheck disable=SC1090
@@ -37,9 +34,7 @@ if [[ ! -x "$VENV_BIN/python" ]]; then
   exit 1
 fi
 
-echo "[manifest] POKER44_MODEL_REPO_URL=$MANIFEST_REPO_URL"
-echo "[manifest] POKER44_MODEL_REPO_COMMIT=$MANIFEST_REPO_COMMIT"
-echo "[manifest] implementation_files / implementation_sha256 computed inside neurons/miner.py"
+echo "[manifest] metadata and implementation sha are computed inside neurons/miner.py"
 
 for raw_id in $(echo "$IDS_STRING" | tr ',' '\n'); do
   I="$(echo "$raw_id" | tr -d ' ')"
@@ -69,8 +64,6 @@ for raw_id in $(echo "$IDS_STRING" | tr ',' '\n'); do
     export PYTHONPATH=$REPO:\${PYTHONPATH:-}
     export POKER44_CHUNK_SCORER=gen14heur3
     export POKER44_GEN14_PROFILE=$REPO/models/gen14_profile.json
-    export POKER44_MODEL_REPO_URL=$MANIFEST_REPO_URL
-    export POKER44_MODEL_REPO_COMMIT=$MANIFEST_REPO_COMMIT
     echo '[runtime] HOTKEY_ID=$I'
     echo '[runtime] CHUNK_SCORER=gen14heur3'
     echo '[runtime] GEN14_PROFILE=$REPO/models/gen14_profile.json'
