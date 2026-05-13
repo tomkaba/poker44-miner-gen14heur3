@@ -6,7 +6,7 @@
   "framework": "python-heuristic",
   "license": "MIT",
   "repo_url": "https://github.com/tomkaba/poker44-miner-gen14heur3",
-  "repo_commit": "7c694019aa66c5f1e3d73241566c771af2fd52b4",
+  "repo_commit": "c0b0e2fbc2fd56f3408cf51d6eb348b2fcf89e40",
   "inference_mode": "remote",
   "training_data_statement": "No validator-private data used.",
   "data_attestation": "This miner does not train on validator-private human data.",
