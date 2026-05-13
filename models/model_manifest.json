@@ -1,5 +1,16 @@
 {
-    "repo_commit": "2924bf2b4b404f70b4ef74d6d370c38b61e86736",
+    "schema_version": "1",
+    "open_source": true,
+    "model_name": "poker44_gen14heur3",
+    "model_version": "14.3",
+    "framework": "python-heuristic",
+    "license": "MIT",
+    "repo_url": "https://github.com/tomkaba/poker44-miner-gen14heur3",
+    "repo_commit": "f55cc3b0710dd567aa54914ad92467ec1e063fb4",
+    "inference_mode": "remote",
+    "training_data_statement": "No validator-private data used.",
+    "data_attestation": "This miner does not train on validator-private human data.",
+    "private_data_attestation": "This miner does not train on validator-private human data.",
     "implementation_files": [
         "models/gen14_profile.json",
         "neurons/miner.py",
@@ -12,5 +23,6 @@
         "poker44/utils/model_manifest.py",
         "poker44/validator/synapse.py"
     ],
-    "implementation_sha256": "b20a08a6c51eec5f16813d35ddd8f1d65140843bdff5a526154a7fa1be8234fb"
+    "implementation_sha256": "87d0bd0ddb1a05ab5d5cbe5200ad3c3323046d156cfd38044eebe0f5bce62b4f",
+    "notes": "Gen14heur3 profile-based healthy-feature heuristic miner."
 }
